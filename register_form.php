@@ -6,15 +6,28 @@ include 'crud\crud.php';
 
 if(isset($_POST['submit'])){
 
-   $login = trim($_POST["login"]);
-   $name = trim($_POST["name"]);
-   $pass = trim($_POST['password']);
+   $login = $_POST["login"];
+   $name = $_POST["name"];
+   $pass = $_POST['password'];
    $cpass = $_POST['conf_password'];
-   $email = trim($_POST["email"]);
+   $email = $_POST["email"];
    $user_type = $_POST['user_type'];
 
-   if(strlen($login) < 6) {
+   $pass = md5($pass);
+   $cpass = md5($cpass);
+
+   $data_b = new Database();
+   $data_b->connect();
+   $select = $data_b->select_register($login, $email);
+
+   if (strlen($login) < 6) {
       $error[] = 'login must contain at least 6 characters';
+   }
+   elseif (stripos($login, " ") !== false) {
+      $error[] = 'in the login not be present spaces';
+   }
+   elseif (stripos($pass, " ") !== false) {
+      $error[] = 'in the password not be present spaces';
    }
    elseif (preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i', $email)) {
       $error[] = 'email is not valid';
@@ -25,23 +38,15 @@ if(isset($_POST['submit'])){
    elseif (!ctype_alpha($name) || strlen($name) < 2) {
       $error[] = 'name must be at least 2 characters long and contain only letters';
    }
-
-   $pass = md5($pass);
-   $cpass = md5($cpass);
-
-   $data_b = new Database();
-   $data_b->connect();
-   $select = $data_b->select_register($login, $email);
-
-   if ($select == 'login') {
+   elseif ($select == 'login') {
       $error[] = 'this login is already taken';
    }
    elseif ($select == 'email') {
       $error[] = 'this email is already taken';
    } else {
-      if($pass !== $cpass){
+      if ($pass !== $cpass){
          $error[] = 'password not matched!';
-      }else{
+      } else {
          $data_b->insert($login, $pass, $name, $email, $user_type);
          header('location:login_form.php');
       }

@@ -7,9 +7,9 @@ include 'crud\crud.php';
 if(isset($_POST['submit'])){
    $data_b = new Database();
    $data_b->connect();
-   $email = $_POST["email"];
+   $login = $_POST["login"];
    $password = md5($_POST["password"]);
-   $select = $data_b->select_login($email, $password);
+   $select = $data_b->select_login($login, $password);
 
    if($select) {
       if($select->user_type == 'admin'){
@@ -24,7 +24,6 @@ if(isset($_POST['submit'])){
 
       }
    } else {
-      print 'hi';
       $error[] = 'incorrect email or password!';
    }
 };
@@ -55,7 +54,7 @@ if(isset($_POST['submit'])){
          };
       };
       ?>
-      <input type="email" name="email" required placeholder="enter your email">
+      <input type="login" name="login" required placeholder="enter your login">
       <input type="password" name="password" required placeholder="enter your password">
       <input type="submit" name="submit" value="login now" class="form-btn">
       <p>don't have an account? <a href="register_form.php">register now</a></p>
