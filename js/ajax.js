@@ -19,7 +19,7 @@ $('.login-btn').click((e) => {
         success (data) {
 
             if(data.status) {
-                document.location.href = '/page.php';
+                document.location.href = 'page.php';
             } else {
                 $('.error-msg').removeClass('none').addClass('block').text(data.message);
             }
@@ -57,7 +57,7 @@ $('.register-btn').click((e) => {
         success (data) {
 
             if (data.status) {
-                document.location.href = '/login_form.php';
+                document.location.href = 'login_form.php';
             } else {
 
                 if (data.type === 1) {
