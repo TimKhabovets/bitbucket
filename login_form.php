@@ -18,26 +18,32 @@ if(isset($_SESSION['name'])){
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+   <script src="js/jquery.js"></script>
+
+   <script src="js/no-form.js"></script>
 
 </head>
 <body>
+
+
    
 <div class="form-container">
 
    <form>
+      <div id="noJS"> please enable JavaScript</div>
+
       <h3>login now</h3>
 
       <span class="error-msg none"></span>
 
       <input type="login" name="login" required placeholder="enter your login">
       <input type="password" name="password" required placeholder="enter your password">
-      <button type="submit" class="login-btn">login now</button>
+      <button type="submit" id="site" class="login-btn">login now</button>
       <p>don't have an account? <a href="register_form.php">register now</a></p>
    </form>
 
 </div>
 
-<script src="js/jquery.js"></script>
 <script src="js/ajax.js"></script>
 
 </body>

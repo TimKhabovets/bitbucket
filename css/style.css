@@ -8,6 +8,10 @@
    text-decoration: none;
 }
 
+#site {
+   display: none;
+}
+
 .container{
    min-height: 100vh;
    display: flex;
@@ -102,6 +106,11 @@
 
 .form-container form select option{
    background: #fff;
+}
+
+.js {
+   text-align: center;
+   
 }
 
 .form-container form .login-btn,

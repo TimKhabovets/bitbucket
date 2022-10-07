@@ -23,12 +23,11 @@ class Database{
 	// Function to SELECT from the database
 	public function select_login($login, $password){
 		foreach ($this->db as $key => $obj){
-			if ($obj->login == $login || $obj->password == $password) {
+			if ($obj->login == $login && $obj->password == $password) {
 				return $obj;
-			} else {
-				return false;
-			}
+			} 
 		}
+		return false;
     }
 
 	public function select_register($login, $email){

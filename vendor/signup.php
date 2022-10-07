@@ -19,12 +19,20 @@ if (strlen($login) < 6) {
    $error[] = 'login';
 }
 
-if ($email == '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if(stripos($login, " ") !== false) {
+   $error[] = 'login';
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
    $error[] = 'email';
 }
 
 if ((strlen($password) < 6 || !preg_match('/\d/', $password)) || !preg_match('/[a-zA-Z]/', $password)) {
    $error[] = 'password';
+}
+
+if(stripos($password, " ") !== false) {
+   $error[] = 'login';
 }
 
 if (!ctype_alpha($name) || strlen($name) < 2) {
